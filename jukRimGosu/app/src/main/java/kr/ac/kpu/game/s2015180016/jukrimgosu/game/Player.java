@@ -14,43 +14,31 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.BoxCollidable;
 
 public class Player implements GameObject, BoxCollidable {
     private static final String TAG = Player.class.getSimpleName();
-    private static final int BULLET_SPEED = 1500;
-    private static final float FIRE_INTERVAL = 1.0f/4.5f;
-    private static final float LASER_DURATION =FIRE_INTERVAL/3;
-    private float fireTime;
-    private float x, y;
-    private float dx, dy;
-    private float tx, ty;
-    private float speed;
     private static GameBitmap planeBitmap;
-    private static GameBitmap fireBitmap;
     private float angle = 0;
-
+    private Vector2 Pos,Dir;
     private JoyStickClass js;
-    public Player(float x, float y) {
+    private float SPEED=5.f;
+    public Player(Vector2 Pos) {
         this.js=MainActivity.js;
-        this.x = x;
-        this.y = y;
-
-        this.tx = x;
-        this.ty = 0;
-        this.speed = 800;
+        this.Pos=Pos;
+        this.Dir=new Vector2(0,0);
         this.planeBitmap = new GameBitmap(R.mipmap.player);
-        this.fireTime=0.0f;
-    }
+        this.planeBitmap.Set_Scale(80.f,80.f);
 
-    public void moveTo(float x, float y) {
-        this.tx=x;
     }
 
     public void update() {
         MainGame game = MainGame.get();
-        if(this.x<0)
-            this.x=0;
-        if(this.y<0)
-            this.y=0;
-        this.x += js.getX()*game.frameTime*3.f;
-        this.y += js.getY()*game.frameTime*3.f;
+        if(Pos.x<0)
+            Pos.x=0;
+        if(Pos.y<0)
+            Pos.y=0;
+
+        Dir.x= js.getX()*game.frameTime*3.f;
+        Dir.y= js.getY()*game.frameTime*3.f;
+        Dir.nor();
+        Pos.add(Dir.mul(SPEED) );
     }
     public float calcAngleDegree(float x,float y)
     {
@@ -58,12 +46,17 @@ public class Player implements GameObject, BoxCollidable {
     }
 
     public void draw(Canvas canvas) {
-        planeBitmap.draw(canvas,x,y);
+        planeBitmap.draw(canvas,Pos.x,Pos.y);
     }
 
     @Override
     public void getBoundingRect(RectF rect) {
-        planeBitmap.getBoundingRect(x, y, rect);
+        planeBitmap.getBoundingRect(Pos.x, Pos.y, rect);
+    }
+
+    public Vector2 getPos()
+    {
+        return Pos;
     }
 }
 

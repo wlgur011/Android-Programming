@@ -28,6 +28,8 @@ public class GameBitmap {
 
     protected final Bitmap bitmap;
     protected RectF dstRect = new RectF();
+    protected float Sx=50.f;
+    protected float Sy=50.f;
     public GameBitmap(int resID){
         bitmap =load(resID);
 
@@ -39,11 +41,8 @@ public class GameBitmap {
     public void draw(Canvas canvas, float x, float y){
         int hw = getWidth()/2;
         int hh =  getHeight()/2;
-        float dl = x-hw* GameView.MULTIPLIER;
-        float dt = y-hh *GameView.MULTIPLIER;
-        float dr =  x+hw*GameView.MULTIPLIER;
-        float db =  y+hh*GameView.MULTIPLIER;
-        dstRect.set(dl,dt,dr,db);
+
+        dstRect.set(x-Sx*0.5f,y-Sy*0.5f,x+Sx*0.5f,y+Sy*0.5f);
         canvas.drawBitmap(bitmap, null, dstRect, null);
     }
 
@@ -63,5 +62,10 @@ public class GameBitmap {
         float db =  y+hh*GameView.MULTIPLIER;
 
         rect.set(dl,dt,dr,db);
+    }
+    public void Set_Scale(float Sx,float Sy)
+    {
+        this.Sx=Sx;
+        this.Sy=Sy;
     }
 }

@@ -3,9 +3,11 @@ package kr.ac.kpu.game.s2015180016.jukrimgosu.game;
 
 import android.graphics.Canvas;
 import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Vector;
 
 import kr.ac.kpu.game.s2015180016.jukrimgosu.R;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.GameObject;
@@ -18,7 +20,7 @@ public class MainGame {
     private static final String TAG = MainGame.class.getSimpleName();
     // singleton
     private static MainGame instance;
-    private Player player;
+    public Player player;
     private Score score;
 
     public static MainGame get() {
@@ -50,7 +52,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, bullet, player, bg2, ui, controller, ENEMY_COUNT
+        bg1, enemy, arrow, player, bg2, ui, controller, ENEMY_COUNT
     }
     public boolean initResources() {
         if (initialized) {
@@ -61,19 +63,21 @@ public class MainGame {
 
         initLayers(Layer.ENEMY_COUNT.ordinal());
 
-        player = new Player(w/2, h - 300);
+        player = new Player(new Vector2(w/2, h - 300));
         add(Layer.player, player);
-        add(Layer.controller, new EnemyGenerator());
 
         int margin = (int) (20 * GameView.MULTIPLIER);
         score = new Score(w - margin, margin);
         score.setScore(0);
         add(Layer.ui, score);
 
-        ImageObject bg = new ImageObject(R.mipmap.background,0,0);
+        ImageObject bg = new ImageObject(R.mipmap.back,w/2 ,h/2);
         add(Layer.bg1, bg);
 
-
+        NormalArrow Arrow = NormalArrow.get(new Vector2(0,0),0);
+        add(Layer.arrow, Arrow);
+        GuideArrow Arrow2 = GuideArrow.get(new Vector2(0,0),0);
+        add(Layer.arrow, Arrow2);
         initialized = true;
         return true;
     }
@@ -87,62 +91,32 @@ public class MainGame {
 
     public void update() {
         //if (!initialized) return;
-        for (ArrayList<GameObject> objects: layers) {
+        for (ArrayList<GameObject> objects : layers) {
             for (GameObject o : objects) {
                 o.update();
             }
         }
 
-        ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
-        ArrayList<GameObject> bullets = layers.get(Layer.bullet.ordinal());
-        for (GameObject o1: enemies) {
-            Enemy enemy = (Enemy) o1;
-            boolean collided = false;
-            for (GameObject o2: bullets) {
-                Bullet bullet = (Bullet) o2;
-                if (CollisionHelper.collides(enemy, bullet)) {
-                    remove(bullet, false);
-                    remove(enemy, false);
-                    score.addScore(10);
-                    collided = true;
-                    break;
-                }
-            }
-            if (collided) {
-                break;
-            }
-        }
-//        for (GameObject o1 : objects) {
-//            if (!(o1 instanceof Enemy)) {
-//                continue;
-//            }
-//            Enemy enemy = (Enemy) o1;
-//            boolean removed = false;
-//            for (GameObject o2 : objects) {
-//                if (!(o2 instanceof Bullet)) {
-//                    continue;
-//                }
-//                Bullet bullet = (Bullet) o2;
-//
-//                if (CollisionHelper.collides(enemy, bullet)) {
-//                    //Log.d(TAG, "Collision!" + o1 + " - " + o2);
-//                    remove(enemy);
-//                    remove(bullet);
-//                    //bullet.recycle();
-//                    //recycle(bullet);
-//                    removed = true;
-//                    break;
-//                }
-//            }
-//            if (removed) {
-//                continue;
-//            }
-//            if (CollisionHelper.collides(enemy, player)) {
-//                Log.d(TAG, "Collision: Enemy - Player");
-//            }
-//        }
+        // ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
+        // ArrayList<GameObject> bullets = layers.get(Layer.bullet.ordinal());
+        // for (GameObject o1: enemies) {
+        //     Enemy enemy = (Enemy) o1;
+        //     boolean collided = false;
+        //     for (GameObject o2: bullets) {
+        //         Bullet bullet = (Bullet) o2;
+        //         if (CollisionHelper.collides(enemy, bullet)) {
+        //             remove(bullet, false);
+        //             remove(enemy, false);
+        //             score.addScore(10);
+        //             collided = true;
+        //             break;
+        //         }
+        //     }
+        //     if (collided) {
+        //         break;
+        //     }
+        // }
     }
-
     public void draw(Canvas canvas) {
         //if (!initialized) return;
         for (ArrayList<GameObject> objects: layers) {
@@ -156,14 +130,7 @@ public class MainGame {
         int action = event.getAction();
 //        if (action == MotionEvent.ACTION_DOWN) {
         if (action == MotionEvent.ACTION_DOWN || action == MotionEvent.ACTION_MOVE) {
-            player.moveTo(event.getX(), event.getY());
-//            int li = 0;
-//            for (ArrayList<GameObject> objects: layers) {
-//                for (GameObject o : objects) {
-//                    Log.d(TAG, "L:" + li + " " + o);
-//                }
-//                li++;
-//            }
+
             return true;
         }
         return false;
