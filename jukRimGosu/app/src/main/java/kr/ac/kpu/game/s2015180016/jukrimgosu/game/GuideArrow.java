@@ -61,7 +61,19 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
 
     @Override
     public void draw(Canvas canvas) {
+        MainGame game = MainGame.get();
+        Player player = game.player;
+        float delta_x =  player.getPos().x-this.Pos.x;
+        float delta_y =  player.getPos().y-this.Pos.y;
+        Vector2 vector2=new Vector2(delta_x,delta_y);
+        vector2.nor();
+        float angle = (float) Math.atan2(vector2.y, vector2.x);
+        float degree = (float) (angle * 180 / Math.PI);
+        canvas.save();
+        canvas.rotate(degree, Pos.x, Pos.y);
         bitmap.draw(canvas,Pos.x,Pos.y);
+        canvas.restore();
+
     }
 
     @Override
