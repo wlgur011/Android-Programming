@@ -78,7 +78,8 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         Pos.add(Dir.mul(this.speed));
         BoundingRectOffSetDir.set(Pos);
         BoundingRectOffSetDir.add(Dir.mul(10));
-        BoundingRect.set(BoundingRectOffSetDir.x-10,BoundingRectOffSetDir.y-10,BoundingRectOffSetDir.x+10,BoundingRectOffSetDir.y+10);
+        BoundingRect.set(BoundingRectOffSetDir.x-5,BoundingRectOffSetDir.y-5
+                ,BoundingRectOffSetDir.x+5,BoundingRectOffSetDir.y+5);
         //game.remove(this);
 
     }
