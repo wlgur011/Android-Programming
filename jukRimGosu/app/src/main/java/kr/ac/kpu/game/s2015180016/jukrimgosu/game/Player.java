@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.s2015180016.jukrimgosu.game;
 
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 
@@ -19,13 +20,16 @@ public class Player implements GameObject, BoxCollidable {
     private Vector2 Pos,Dir;
     private JoyStickClass js;
     private float SPEED=5.f;
+    private RectF BoundingRect;
+    private Paint paint;
     public Player(Vector2 Pos) {
         this.js=MainActivity.js;
         this.Pos=Pos;
         this.Dir=new Vector2(0,0);
         this.planeBitmap = new GameBitmap(R.mipmap.player);
         this.planeBitmap.Set_Scale(80.f,80.f);
-
+        this.BoundingRect=new RectF();
+        this.paint=new Paint();
     }
 
     public void update() {
@@ -39,6 +43,7 @@ public class Player implements GameObject, BoxCollidable {
         Dir.y= js.getY()*game.frameTime*3.f;
         Dir.nor();
         Pos.add(Dir.mul(SPEED) );
+        BoundingRect.set(Pos.x-40.f,Pos.y-40.f,Pos.x+40.f,Pos.y+40.f);
     }
     public float calcAngleDegree(float x,float y)
     {
@@ -47,6 +52,7 @@ public class Player implements GameObject, BoxCollidable {
 
     public void draw(Canvas canvas) {
         planeBitmap.draw(canvas,Pos.x,Pos.y);
+        canvas.drawRect(BoundingRect,this.paint);
     }
 
     @Override

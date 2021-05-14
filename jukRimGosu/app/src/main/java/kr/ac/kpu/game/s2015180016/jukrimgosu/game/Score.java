@@ -15,6 +15,7 @@ public class Score implements GameObject {
     private final int right;
     private final int top;
 
+    private float CurrScore=0.f;
     public void setScore(int score) {
         this.score = score;
         this.displayScore = score;
@@ -34,9 +35,13 @@ public class Score implements GameObject {
     }
     @Override
     public void update() {
+        MainGame game=MainGame.get();
+        CurrScore+=game.frameTime*100f;
+        score= (int) CurrScore;
         if (displayScore < score) {
             displayScore++;
         }
+
     }
 
     @Override

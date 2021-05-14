@@ -19,10 +19,16 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private int speed;
     Vector2 Pos;
     private Vector2 Dir;
+    private Vector2 Angle;
+    private float delta_x;
+    private float delta_y;
+    private MainGame game;
+    private Player player;
+    private Vector2 playerPos;
 
     private GuideArrow(Vector2 Pos, int speed){
         this.Pos=Pos;
-        this.speed= -speed;
+        this.speed= speed;
         this.bitmap = new GameBitmap(R.mipmap.arrow1);
         this.bitmap.Set_Scale(90.f,30.f);
     }
@@ -33,41 +39,49 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
         if(normalArrow ==null)
             return new GuideArrow(Pos,speed);
 
-
         normalArrow.init(Pos,speed);
         return normalArrow;
     }
 
     private void init( Vector2 Pos, int speed) {
         this.Pos=Pos;
-        this.speed= -speed;
+        this.speed= speed;
+
+
         MainGame game= MainGame.get();
 
     }
 
     @Override
     public void update() {
-        MainGame game = MainGame.get();
 
-        Player player = game.player;
-        Vector2 playerPos = new Vector2(player.getPos());
-        Dir = playerPos.sub(Pos);
+        if(!bisInit) {
+            game = MainGame.get();
+            bisInit=true;
+            this.Angle=new Vector2(0,0);
+            this.Dir=new Vector2();
+            this.playerPos=new Vector2();
+            game=MainGame.get();
+            player = game.player;
+        }
+
+        playerPos.set(player.getPos());
+        Dir.set(playerPos.sub(Pos));
         Dir.nor();
 
-        Pos.add(Dir);
+        Pos.add(Dir.mul(this.speed));
+
+        delta_x =  player.getPos().x-this.Pos.x;
+        delta_y =  player.getPos().y-this.Pos.y;
+        Angle.set(delta_x,delta_y);
+        Angle.nor();
         //game.remove(this);
 
     }
 
     @Override
     public void draw(Canvas canvas) {
-        MainGame game = MainGame.get();
-        Player player = game.player;
-        float delta_x =  player.getPos().x-this.Pos.x;
-        float delta_y =  player.getPos().y-this.Pos.y;
-        Vector2 vector2=new Vector2(delta_x,delta_y);
-        vector2.nor();
-        float angle = (float) Math.atan2(vector2.y, vector2.x);
+        float angle = (float) Math.atan2(Angle.y, Angle.x);
         float degree = (float) (angle * 180 / Math.PI);
         canvas.save();
         canvas.rotate(degree, Pos.x, Pos.y);

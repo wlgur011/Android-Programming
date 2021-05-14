@@ -52,7 +52,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, arrow, player, bg2, ui, controller, ENEMY_COUNT
+        bg1, enemy, N_Arrow,G_Arrow, player, bg2, ui, controller, ENEMY_COUNT
     }
     public boolean initResources() {
         if (initialized) {
@@ -74,10 +74,9 @@ public class MainGame {
         ImageObject bg = new ImageObject(R.mipmap.back,w/2 ,h/2);
         add(Layer.bg1, bg);
 
-        NormalArrow Arrow = NormalArrow.get(new Vector2(0,0),0);
-        add(Layer.arrow, Arrow);
-        GuideArrow Arrow2 = GuideArrow.get(new Vector2(0,0),0);
-        add(Layer.arrow, Arrow2);
+        ArrowGenerator generator=new ArrowGenerator();
+        add(Layer.controller, generator);
+
         initialized = true;
         return true;
     }
@@ -97,25 +96,24 @@ public class MainGame {
             }
         }
 
-        // ArrayList<GameObject> enemies = layers.get(Layer.enemy.ordinal());
-        // ArrayList<GameObject> bullets = layers.get(Layer.bullet.ordinal());
-        // for (GameObject o1: enemies) {
-        //     Enemy enemy = (Enemy) o1;
-        //     boolean collided = false;
-        //     for (GameObject o2: bullets) {
-        //         Bullet bullet = (Bullet) o2;
-        //         if (CollisionHelper.collides(enemy, bullet)) {
-        //             remove(bullet, false);
-        //             remove(enemy, false);
-        //             score.addScore(10);
-        //             collided = true;
-        //             break;
-        //         }
-        //     }
-        //     if (collided) {
-        //         break;
-        //     }
-        // }
+        ArrayList<GameObject> player = layers.get(Layer.player.ordinal());
+        ArrayList<GameObject> Arrows = layers.get(Layer.N_Arrow.ordinal());
+      for (GameObject o1: Arrows) {
+          NormalArrow NArrow = (NormalArrow) o1;
+          boolean collided = false;
+          for (GameObject o2: player) {
+              Player TPlayer = (Player) o2;
+              if (CollisionHelper.collides(NArrow, TPlayer)) {
+                  remove(NArrow, false);
+
+                  collided = true;
+                  break;
+              }
+          }
+          if (collided) {
+              break;
+          }
+      }
     }
     public void draw(Canvas canvas) {
         //if (!initialized) return;
@@ -144,7 +142,6 @@ public class MainGame {
                 objects.add(gameObject);
             }
         });
-//        Log.d(TAG, "<A> object count = " + objects.size());
     }
 
     public void remove(GameObject gameObject) {
