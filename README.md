@@ -14,13 +14,13 @@
 
 ****
 # 2. 개발 진척도
-![image-20210331173809389](./Img/1.png)![image-20210331173833852](./Img/2.png)
+![1](./Img/1.png)![2](./Img/2.png)
 
 # 3. 클래스 구성 및 상호작용
 
-![image-20210401190103816](./Img/3.png)
+![3](./Img/3.png)
 
 # 4.  Commit Log
 
-![](C:\Users\user\Desktop\Android-Programming\Img\4.PNG)
+![4](C:\Users\user\Desktop\Android-Programming\Img\4.PNG)
 
