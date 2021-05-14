@@ -43,7 +43,7 @@ public class Player implements GameObject, BoxCollidable {
         Dir.y= js.getY()*game.frameTime*3.f;
         Dir.nor();
         Pos.add(Dir.mul(SPEED) );
-        BoundingRect.set(Pos.x-40.f,Pos.y-40.f,Pos.x+40.f,Pos.y+40.f);
+        BoundingRect.set(Pos.x-20.f,Pos.y-20.f,Pos.x+20.f,Pos.y+20.f);
     }
     public float calcAngleDegree(float x,float y)
     {
