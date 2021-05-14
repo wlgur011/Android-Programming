@@ -1,6 +1,7 @@
 package kr.ac.kpu.game.s2015180016.jukrimgosu.game;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.Log;
@@ -34,6 +35,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         this.bitmap = new GameBitmap(R.mipmap.arrow2);
         this.bitmap.Set_Scale(90.f,30.f);
         this.BoundingRect=new RectF();
+        this.paint.setColor(Color.YELLOW);
     }
 
     public static NormalArrow get(Vector2 Pos, int speed){
