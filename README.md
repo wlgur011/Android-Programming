@@ -16,14 +16,14 @@
 # 2. 개발 진척도
 
 
-![1](C:\Users\user\Desktop\Android-Programming\Img\1.PNG)
+![1](./Img/1.PNG)
 
-![2](C:\Users\user\Desktop\Android-Programming\Img\2.PNG)
+![2](./Img/2.PNG)
 
 # 3. 클래스 구성 및 상호작용
 
-![3](C:\Users\user\Desktop\Android-Programming\Img\3.PNG)
+![3](./Img/3.PNG)
 
 # 4.  Commit Log
 
-![4](C:\Users\user\Desktop\Android-Programming\Img\4.PNG)
+![4](./Img/4.PNG)
