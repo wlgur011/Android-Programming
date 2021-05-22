@@ -84,7 +84,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
 
         Dir.nor();
         BoundingRectOffSetDir.set(Pos);
-        BoundingRectOffSetDir.add(Dir.mul(10));
+        BoundingRectOffSetDir.add(Dir.mul(20));
         BoundingRect.set(BoundingRectOffSetDir.x-5,BoundingRectOffSetDir.y-5
                 ,BoundingRectOffSetDir.x+5,BoundingRectOffSetDir.y+5);
         //game.remove(this);
