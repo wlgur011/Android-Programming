@@ -18,6 +18,8 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private boolean bisInit=false;
     static private Paint paint=new Paint();
     private RectF BoundingRect;
+    private Vector2 BoundingRectOffSetDir;
+
     private int speed;
     Vector2 Pos;
     private Vector2 Dir;
@@ -51,7 +53,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private void init( Vector2 Pos, int speed) {
         this.Pos=Pos;
         this.speed= speed;
-
+        this.bisInit=false;
 
         MainGame game= MainGame.get();
 
@@ -68,18 +70,23 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
             this.playerPos=new Vector2();
             game=MainGame.get();
             player = game.player;
+            BoundingRectOffSetDir=new Vector2();
         }
 
         playerPos.set(player.getPos());
         Dir.set(playerPos.sub(Pos));
         Dir.nor();
-
         Pos.add(Dir.mul(this.speed));
-
         delta_x =  player.getPos().x-this.Pos.x;
         delta_y =  player.getPos().y-this.Pos.y;
         Angle.set(delta_x,delta_y);
         Angle.nor();
+
+        Dir.nor();
+        BoundingRectOffSetDir.set(Pos);
+        BoundingRectOffSetDir.add(Dir.mul(10));
+        BoundingRect.set(BoundingRectOffSetDir.x-5,BoundingRectOffSetDir.y-5
+                ,BoundingRectOffSetDir.x+5,BoundingRectOffSetDir.y+5);
         //game.remove(this);
 
     }
@@ -89,6 +96,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
         float angle = (float) Math.atan2(Angle.y, Angle.x);
         float degree = (float) (angle * 180 / Math.PI);
         canvas.save();
+        canvas.drawRect(BoundingRect,paint);
         canvas.rotate(degree, Pos.x, Pos.y);
         bitmap.draw(canvas,Pos.x,Pos.y);
         canvas.restore();
