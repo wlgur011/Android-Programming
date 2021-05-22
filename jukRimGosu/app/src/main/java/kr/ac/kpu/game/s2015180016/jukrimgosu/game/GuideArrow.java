@@ -1,6 +1,8 @@
 package kr.ac.kpu.game.s2015180016.jukrimgosu.game;
 
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 import kr.ac.kpu.game.s2015180016.jukrimgosu.R;
@@ -11,11 +13,11 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.BoxCollidable;
 
 public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private static final String TAG = GuideArrow.class.getSimpleName();
-    private float x;
     private final GameBitmap bitmap;
 
     private boolean bisInit=false;
-    private float y;
+    static private Paint paint=new Paint();
+    private RectF BoundingRect;
     private int speed;
     Vector2 Pos;
     private Vector2 Dir;
@@ -26,11 +28,14 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private Player player;
     private Vector2 playerPos;
 
+
     private GuideArrow(Vector2 Pos, int speed){
         this.Pos=Pos;
         this.speed= speed;
         this.bitmap = new GameBitmap(R.mipmap.arrow1);
         this.bitmap.Set_Scale(90.f,30.f);
+        this.BoundingRect=new RectF();
+        this.paint.setColor(Color.YELLOW);
     }
     //  private static ArrayList<Bullet> recycleBin =new ArrayList<>();
     public static GuideArrow get(Vector2 Pos, int speed){
