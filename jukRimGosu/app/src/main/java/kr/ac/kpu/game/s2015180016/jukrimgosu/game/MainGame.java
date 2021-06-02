@@ -52,7 +52,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, enemy, N_Arrow,G_Arrow, player, bg2, ui, controller, ENEMY_COUNT
+        bg1, N_Arrow,G_Arrow,Warning, player, bg2, ui, controller, ENEMY_COUNT;
     }
     public boolean initResources() {
         if (initialized) {
@@ -76,7 +76,8 @@ public class MainGame {
 
         ArrowGenerator generator=new ArrowGenerator();
         add(Layer.controller, generator);
-
+        WarningGenerator warningGenerator=new WarningGenerator();
+        add(Layer.controller, warningGenerator);
         initialized = true;
         return true;
     }

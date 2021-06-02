@@ -42,6 +42,8 @@ public class WarningGenerator implements GameObject {
 
         float x = (float) (hw*0.5f + RandRadius * Math.cos(RandInt* Math.PI/180.f));
         float y = (float) (hh*0.5f + RandRadius * Math.sin(RandInt* Math.PI/180.f));
+        Warning warning = Warning.get(new Vector2(x,y),1);
+        game.add(MainGame.Layer.Warning,warning);
      //NormalArrow Arrow = NormalArrow.get(new Vector2(x,y),3);
      //game.add(MainGame.Layer.N_Arrow,Arrow);
 
