@@ -11,10 +11,12 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.GameObject;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.Recyclable;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.BoxCollidable;
 
-public class Laser implements GameObject, BoxCollidable, Recyclable {
+public class Laser implements GameObject, BoxCollidable {
     private static final String TAG = Laser.class.getSimpleName();
     private GameBitmap bitmap;
 
+    private float LIFETIME=0.5f;
+    private float curTime=0.f;
     static private Paint paint=new Paint();
     private RectF BoundingRect;
     private boolean bisInit=false;
@@ -25,32 +27,32 @@ public class Laser implements GameObject, BoxCollidable, Recyclable {
     private Laser(Vector2 Pos, int type){
         this.type=type;
         this.Pos=Pos;
-        this.bitmap = new GameBitmap(R.mipmap.arrow2);
-        this.bitmap.Set_Scale(90.f,30.f);
         this.BoundingRect=new RectF();
         this.paint.setColor(Color.YELLOW);
 
         if(type==0) {
             this.bitmap = new GameBitmap(R.mipmap.laser_x);
+            this.bitmap.Set_Scale(4000.f,30.f);
         }
         else if(type==1) {
             this.bitmap = new GameBitmap(R.mipmap.laser_y);
+            this.bitmap.Set_Scale(30.f,4000.f);
         }
     }
 
     public static Laser get(Vector2 Pos, int type){
         MainGame game= MainGame.get();
-        Laser normalArrow =(Laser)game.get(Laser.class);
+        Laser laser =(Laser)game.get(Laser.class);
 
-        if(normalArrow ==null)
+        if(laser ==null)
             return new Laser(Pos,type);
 
-
-        normalArrow.init(Pos,type);
-        return normalArrow;
+        laser.init(Pos,type);
+        return laser;
     }
 
     private void init( Vector2 Pos, int type) {
+        curTime=0.f;
         this.Pos=Pos;
         this.bisInit=false;
         this.type=type;
@@ -59,18 +61,14 @@ public class Laser implements GameObject, BoxCollidable, Recyclable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-
+        curTime+=game.frameTime;
+        if(curTime>=LIFETIME)
+            game.remove(this);
 
         if(!bisInit) {
             bisInit=true;
             Player player = game.player;
-            Vector2 playerPos = new Vector2(player.getPos());
-
-
-
         }
-
-        //game.remove(this);
 
     }
 
@@ -89,8 +87,4 @@ public class Laser implements GameObject, BoxCollidable, Recyclable {
     }
 
 
-    @Override
-    public void recycle() {
-
-    }
 }

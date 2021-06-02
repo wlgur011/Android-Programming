@@ -11,11 +11,13 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.GameObject;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.Recyclable;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.BoxCollidable;
 
-public class Warning implements GameObject, BoxCollidable, Recyclable {
+public class Warning implements GameObject, BoxCollidable {
     private static final String TAG = Warning.class.getSimpleName();
 
     private GameBitmap bitmap = null;
 
+    private float LIFETIME=3.f;
+    private float curTime=0.f;
     private boolean bisInit=false;
     Vector2 Pos;
     private int type;
@@ -30,7 +32,6 @@ public class Warning implements GameObject, BoxCollidable, Recyclable {
         }
         this.bitmap.Set_Scale(90.f,90.f);
     }
-
     public static Warning get(Vector2 Pos, int type){
         MainGame game= MainGame.get();
         Warning warning =(Warning)game.get(Warning.class);
@@ -38,24 +39,29 @@ public class Warning implements GameObject, BoxCollidable, Recyclable {
         if(warning ==null)
             return new Warning(Pos,type);
 
-
         warning.init(Pos,type);
         return warning;
     }
 
-    private void init( Vector2 Pos, int speed) {
+    private void init( Vector2 Pos, int type) {
+        curTime=0.f;
         this.Pos=Pos;
         this.bisInit=false;
+        this.type=type;
     }
 
     @Override
     public void update() {
         MainGame game = MainGame.get();
 
-
+        curTime+=game.frameTime;
+        if(curTime>=LIFETIME) {
+            Laser laser = Laser.get(new Vector2(this.Pos.x,this.Pos.y),this.type);
+            game.add(MainGame.Layer.Laser,laser);
+            game.remove(this);
+        }
         if(!bisInit) {
             bisInit=true;
-
         }
 
     }
@@ -72,9 +78,4 @@ public class Warning implements GameObject, BoxCollidable, Recyclable {
 
     }
 
-
-    @Override
-    public void recycle() {
-
-    }
 }
