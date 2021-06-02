@@ -28,7 +28,7 @@ public class Warning implements GameObject, BoxCollidable, Recyclable {
         else if(type==2) {
             this.bitmap = new GameBitmap(R.mipmap.warny);
         }
-        this.bitmap.Set_Scale(90.f,30.f);
+        this.bitmap.Set_Scale(90.f,90.f);
     }
 
     public static Warning get(Vector2 Pos, int type){
