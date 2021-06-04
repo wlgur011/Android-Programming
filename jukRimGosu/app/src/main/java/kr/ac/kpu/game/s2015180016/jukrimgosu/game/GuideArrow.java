@@ -105,7 +105,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
 
     @Override
     public void getBoundingRect(RectF rect) {
-        bitmap.getBoundingRect(Pos.x, Pos.y, rect);
+        rect.set(BoundingRect);
     }
 
 

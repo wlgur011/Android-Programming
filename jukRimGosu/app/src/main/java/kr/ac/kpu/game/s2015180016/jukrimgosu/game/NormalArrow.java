@@ -99,8 +99,10 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
     }
 
     @Override
-    public void getBoundingRect(RectF rect) {
-        bitmap.getBoundingRect(Pos.x, Pos.y, rect);
+    public void getBoundingRect(RectF rect)
+    {
+        rect.set(BoundingRect);
+        //bitmap.getBoundingRect(Pos.x, Pos.y, rect);
     }
 
 

@@ -15,7 +15,7 @@ public class Laser implements GameObject, BoxCollidable {
     private static final String TAG = Laser.class.getSimpleName();
     private GameBitmap bitmap;
 
-    private float LIFETIME=0.5f;
+    private float LIFETIME=0.8f;
     private float curTime=0.f;
     static private Paint paint=new Paint();
     private RectF BoundingRect;
@@ -90,7 +90,8 @@ public class Laser implements GameObject, BoxCollidable {
 
     @Override
     public void getBoundingRect(RectF rect) {
-        bitmap.getBoundingRect(Pos.x, Pos.y, rect);
+        rect.set(BoundingRect);
+        //bitmap.getBoundingRect(Pos.x, Pos.y, rect);
     }
 
 

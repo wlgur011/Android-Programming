@@ -100,6 +100,31 @@ public class MainGame {
         ArrayList<GameObject> player = layers.get(Layer.player.ordinal());
         ArrayList<GameObject> Arrows = layers.get(Layer.N_Arrow.ordinal());
         ArrayList<GameObject> GArrows = layers.get(Layer.G_Arrow.ordinal());
+        ArrayList<GameObject> lasers = layers.get(Layer.Laser.ordinal());
+
+        for (GameObject o1: lasers) {
+            Laser laser = (Laser) o1;
+            boolean collided = false;
+            for (GameObject o2: Arrows ) {
+                NormalArrow NArrow = (NormalArrow) o2;
+                if (CollisionHelper.collides(NArrow, laser)) {
+                    remove(NArrow, false);
+                    collided = true;
+                    break;
+                }
+            }
+            for (GameObject o2: GArrows ) {
+                GuideArrow GArrow = (GuideArrow) o2;
+                if (CollisionHelper.collides(GArrow, laser)) {
+                    remove(GArrow, false);
+                    collided = true;
+                    break;
+                }
+            }
+            if (collided) {
+                break;
+            }
+        }
       for (GameObject o1: player) {
           Player TPlayer = (Player) o1;
 
