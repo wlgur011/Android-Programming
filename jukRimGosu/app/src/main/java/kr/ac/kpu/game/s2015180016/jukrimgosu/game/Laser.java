@@ -33,14 +33,21 @@ public class Laser implements GameObject, BoxCollidable {
         if(type==0) {
             this.bitmap = new GameBitmap(R.mipmap.laser_x);
             this.bitmap.Set_Scale(4000.f,30.f);
+
+            BoundingRect.set(this.Pos.x-2000,this.Pos.y-15
+                    ,this.Pos.x+2000,this.Pos.y+15);
         }
         else if(type==1) {
             this.bitmap = new GameBitmap(R.mipmap.laser_y);
             this.bitmap.Set_Scale(30.f,4000.f);
+
+            BoundingRect.set(this.Pos.x-15,this.Pos.y-2000
+                    ,this.Pos.x+15,this.Pos.y+2000);
         }
     }
 
     public static Laser get(Vector2 Pos, int type){
+
         MainGame game= MainGame.get();
         Laser laser =(Laser)game.get(Laser.class);
 
@@ -76,9 +83,9 @@ public class Laser implements GameObject, BoxCollidable {
     public void draw(Canvas canvas) {
 
 
-        canvas.drawRect(BoundingRect,paint);
-        bitmap.draw(canvas,Pos.x,Pos.y);
 
+        bitmap.draw(canvas,Pos.x,Pos.y);
+        canvas.drawRect(BoundingRect,paint);
     }
 
     @Override
