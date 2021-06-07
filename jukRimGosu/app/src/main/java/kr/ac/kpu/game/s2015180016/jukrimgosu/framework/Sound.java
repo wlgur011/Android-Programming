@@ -8,11 +8,14 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import kr.ac.kpu.game.s2015180016.jukrimgosu.R;
+
 
 public class Sound {
     private static final String TAG = Sound.class.getSimpleName();
     private static SoundPool soundPool;
     private static final int[] SOUND_IDS = {
+            R.raw.bgm,R.raw.bgm2
     };
     private static HashMap<Integer, Integer> soundIdMap = new HashMap<>();
 
@@ -43,4 +46,3 @@ public class Sound {
         return streamId;
     }
 }
-

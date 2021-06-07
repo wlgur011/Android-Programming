@@ -2,6 +2,7 @@ package kr.ac.kpu.game.s2015180016.jukrimgosu.game;
 
 
 import android.graphics.Canvas;
+import android.media.MediaPlayer;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -24,6 +25,7 @@ public class MainGame {
     private Score score;
 
     public static MainGame get() {
+
         if (instance == null) {
             instance = new MainGame();
         }
@@ -58,6 +60,7 @@ public class MainGame {
         if (initialized) {
             return false;
         }
+
         int w = GameView.view.getWidth();
         int h = GameView.view.getHeight();
 
@@ -79,6 +82,9 @@ public class MainGame {
         WarningGenerator warningGenerator=new WarningGenerator();
         add(Layer.controller, warningGenerator);
         initialized = true;
+
+        GameView.view.mediaPlayer.start();
+
         return true;
     }
 
@@ -90,6 +96,7 @@ public class MainGame {
     }
 
     public void update() {
+
         //if (!initialized) return;
         for (ArrayList<GameObject> objects : layers) {
             for (GameObject o : objects) {
@@ -111,6 +118,7 @@ public class MainGame {
                 if (CollisionHelper.collides(NArrow, laser)) {
                     remove(NArrow, false);
                     collided = true;
+                    score.addScore(20);
                     break;
                 }
             }
@@ -119,6 +127,7 @@ public class MainGame {
                 if (CollisionHelper.collides(GArrow, laser)) {
                     remove(GArrow, false);
                     collided = true;
+                    score.addScore(100);
                     break;
                 }
             }

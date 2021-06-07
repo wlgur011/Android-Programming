@@ -13,6 +13,7 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.BoxCollidable;
 public class Warning_item implements GameObject, BoxCollidable {
     private static final String TAG = Warning_item.class.getSimpleName();
 
+    private float time=0.f;
     private GameBitmap bitmap = null;
     static private Paint paint=new Paint();
     private boolean bisInit=false;
@@ -50,8 +51,9 @@ public class Warning_item implements GameObject, BoxCollidable {
     @Override
     public void update() {
         MainGame game = MainGame.get();
-
-
+        time+=game.frameTime;
+        if(time>3.f)
+            game.remove(this);
         if(!bisInit) {
             bisInit=true;
         }

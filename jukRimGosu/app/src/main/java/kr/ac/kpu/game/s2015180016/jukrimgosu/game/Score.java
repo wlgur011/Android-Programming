@@ -21,7 +21,7 @@ public class Score implements GameObject {
         this.displayScore = score;
     }
     public void addScore(int amount) {
-        this.score += amount;
+        this.CurrScore += amount;
     }
 
     private int score, displayScore;
@@ -39,7 +39,7 @@ public class Score implements GameObject {
         CurrScore+=game.frameTime*100f;
         score= (int) CurrScore;
         if (displayScore < score) {
-            displayScore++;
+            displayScore+=10;
         }
 
     }
