@@ -9,24 +9,28 @@ import kr.ac.kpu.game.s2015180016.jukrimgosu.ui.view.GameView;
 
 public class WarningGenerator implements GameObject {
 
-    private static final float INITIAL_SPAWN_INTERVAL = 5.0f;
+
     private static final String TAG = WarningGenerator.class.getSimpleName();
     private final MainGame game;
-    private float time;
+    private float totalTime;
     private float spawnInterval;
+    private float warningTime=0.f;
 
     public WarningGenerator() {
-        time = INITIAL_SPAWN_INTERVAL;
-        spawnInterval = INITIAL_SPAWN_INTERVAL;
+
          game = MainGame.get();
     }
     @Override
     public void update() {
 
-        time += game.frameTime*5.f;
-        if (time >= spawnInterval) {
-            generate();
-            time -= spawnInterval;
+        totalTime += game.frameTime;
+
+        if(totalTime>15.f) {
+            warningTime+=game.frameTime;
+            if(warningTime>3.f){
+                warningTime=0.f;
+                generate();
+            }
 
         }
     }
@@ -42,8 +46,16 @@ public class WarningGenerator implements GameObject {
 
         float x = (float) (hw*0.5f + RandRadius * Math.cos(RandInt* Math.PI/180.f));
         float y = (float) (hh*0.5f + RandRadius * Math.sin(RandInt* Math.PI/180.f));
+
+        int RandType2=r.nextInt(5);
+        if(RandType2==3) {
+            Warning_item warning= Warning_item.get(new Vector2(x,y));
+            game.add(MainGame.Layer.Warning_item,warning);
+        }
+        else {
         Warning warning = Warning.get(new Vector2(x,y),RandType);
         game.add(MainGame.Layer.Warning,warning);
+        }
      //NormalArrow Arrow = NormalArrow.get(new Vector2(x,y),3);
      //game.add(MainGame.Layer.N_Arrow,Arrow);
 

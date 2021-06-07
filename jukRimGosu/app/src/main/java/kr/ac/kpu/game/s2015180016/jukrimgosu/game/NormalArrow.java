@@ -21,7 +21,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
     private RectF BoundingRect;
     private boolean bisInit=false;
     private float y;
-    private int speed;
+    private float speed;
     Vector2 Pos;
     private Vector2 Dir;
     private Vector2 BoundingRectOffSetDir;
@@ -29,7 +29,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
     private float delta_y;
     private Vector2 Angle;
 
-    private NormalArrow(Vector2 Pos, int speed){
+    private NormalArrow(Vector2 Pos, float speed){
         this.Pos=Pos;
         this.speed= speed;
         this.bitmap = new GameBitmap(R.mipmap.arrow2);
@@ -38,7 +38,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         this.paint.setColor(Color.YELLOW);
     }
 
-    public static NormalArrow get(Vector2 Pos, int speed){
+    public static NormalArrow get(Vector2 Pos, float speed){
         MainGame game= MainGame.get();
         NormalArrow normalArrow =(NormalArrow)game.get(NormalArrow.class);
 
@@ -50,7 +50,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         return normalArrow;
     }
 
-    private void init( Vector2 Pos, int speed) {
+    private void init(Vector2 Pos, float speed) {
         this.Pos=Pos;
         this.speed= speed;
         this.bisInit=false;
@@ -77,7 +77,8 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         Dir.nor();
         Pos.add(Dir.mul(this.speed));
         BoundingRectOffSetDir.set(Pos);
-        BoundingRectOffSetDir.add(Dir.mul(10));
+        Dir.nor();
+        BoundingRectOffSetDir.add(Dir.mul(30));
         BoundingRect.set(BoundingRectOffSetDir.x-5,BoundingRectOffSetDir.y-5
                 ,BoundingRectOffSetDir.x+5,BoundingRectOffSetDir.y+5);
         //game.remove(this);

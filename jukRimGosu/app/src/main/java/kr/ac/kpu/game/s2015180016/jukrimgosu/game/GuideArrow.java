@@ -20,7 +20,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private RectF BoundingRect;
     private Vector2 BoundingRectOffSetDir;
 
-    private int speed;
+    private float speed;
     Vector2 Pos;
     private Vector2 Dir;
     private Vector2 Angle;
@@ -31,7 +31,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
     private Vector2 playerPos;
 
 
-    private GuideArrow(Vector2 Pos, int speed){
+    private GuideArrow(Vector2 Pos, float speed){
         this.Pos=Pos;
         this.speed= speed;
         this.bitmap = new GameBitmap(R.mipmap.arrow1);
@@ -40,7 +40,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
         this.paint.setColor(Color.YELLOW);
     }
     //  private static ArrayList<Bullet> recycleBin =new ArrayList<>();
-    public static GuideArrow get(Vector2 Pos, int speed){
+    public static GuideArrow get(Vector2 Pos, float speed){
         MainGame game= MainGame.get();
         GuideArrow normalArrow =(GuideArrow)game.get(GuideArrow.class);
         if(normalArrow ==null)
@@ -50,7 +50,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
         return normalArrow;
     }
 
-    private void init( Vector2 Pos, int speed) {
+    private void init( Vector2 Pos, float speed) {
         this.Pos=Pos;
         this.speed= speed;
         this.bisInit=false;

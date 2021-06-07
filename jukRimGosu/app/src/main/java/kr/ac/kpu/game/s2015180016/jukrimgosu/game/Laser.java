@@ -85,7 +85,7 @@ public class Laser implements GameObject, BoxCollidable {
 
 
         bitmap.draw(canvas,Pos.x,Pos.y);
-        canvas.drawRect(BoundingRect,paint);
+        //canvas.drawRect(BoundingRect,paint);
     }
 
     @Override

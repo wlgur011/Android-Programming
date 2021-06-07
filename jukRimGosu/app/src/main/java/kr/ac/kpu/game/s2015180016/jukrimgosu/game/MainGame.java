@@ -52,7 +52,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, N_Arrow,G_Arrow,Warning,Laser, player, ui, controller, ENEMY_COUNT;
+        bg1, N_Arrow,G_Arrow,Warning,Warning_item,Laser, player, ui, controller, ENEMY_COUNT;
     }
     public boolean initResources() {
         if (initialized) {
@@ -99,6 +99,7 @@ public class MainGame {
 
         ArrayList<GameObject> player = layers.get(Layer.player.ordinal());
         ArrayList<GameObject> Arrows = layers.get(Layer.N_Arrow.ordinal());
+        ArrayList<GameObject> Item = layers.get(Layer.Warning_item.ordinal());
         ArrayList<GameObject> GArrows = layers.get(Layer.G_Arrow.ordinal());
         ArrayList<GameObject> lasers = layers.get(Layer.Laser.ordinal());
 
@@ -129,6 +130,16 @@ public class MainGame {
           Player TPlayer = (Player) o1;
 
           boolean collided = false;
+
+          for (GameObject o2: Item ) {
+              Warning_item item = (Warning_item) o2;
+              if (CollisionHelper.collides(item, TPlayer)) {
+                  TPlayer.roundLaser();
+                  remove(item, false);
+                  collided = true;
+                  break;
+              }
+          }
           for (GameObject o2: Arrows ) {
               NormalArrow NArrow = (NormalArrow) o2;
               if (CollisionHelper.collides(NArrow, TPlayer)) {
