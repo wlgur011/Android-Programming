@@ -72,7 +72,26 @@ public class Player implements GameObject, BoxCollidable {
     {
         MainGame game = MainGame.get();
         int Offset=100;
-       
+        for(int i = (int) (Pos.x - 500); i<Pos.x-Offset; i+=60)
+        {
+            Laser laser =Laser.get(new Vector2(i,Pos.y),1);
+            game.add(MainGame.Layer.Laser,laser);
+        }
+        for(int j = (int) (Pos.y - 500); j<Pos.y- Offset; j+=60)
+        {
+            Laser laser =Laser.get(new Vector2(Pos.x,j),0);
+            game.add(MainGame.Layer.Laser,laser);
+        }
+        for(int i = (int) (Pos.x +Offset); i<Pos.x+500; i+=60)
+        {
+            Laser laser =Laser.get(new Vector2(i,Pos.y),1);
+            game.add(MainGame.Layer.Laser,laser);
+        }
+        for(int j = (int) (Pos.y + Offset); j<Pos.y+ 500; j+=60)
+        {
+            Laser laser =Laser.get(new Vector2(Pos.x,j),0);
+            game.add(MainGame.Layer.Laser,laser);
+        }
     }
 }
 
