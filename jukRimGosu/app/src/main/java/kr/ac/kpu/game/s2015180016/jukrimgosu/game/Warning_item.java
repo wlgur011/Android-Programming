@@ -61,7 +61,7 @@ public class Warning_item implements GameObject, BoxCollidable {
     @Override
     public void draw(Canvas canvas) {
         bitmap.draw(canvas,Pos.x,Pos.y);
-        canvas.drawRect(BoundingRect,paint);
+        //canvas.drawRect(BoundingRect,paint);
 
     }
 
