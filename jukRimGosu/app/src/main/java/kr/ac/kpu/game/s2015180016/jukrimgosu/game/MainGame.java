@@ -13,6 +13,7 @@ import java.util.Vector;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.R;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.GameObject;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.Recyclable;
+import kr.ac.kpu.game.s2015180016.jukrimgosu.ui.activity.MainActivity;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.ui.view.GameView;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.utils.CollisionHelper;
 
@@ -140,12 +141,14 @@ public class MainGame {
 
           boolean collided = false;
 
+
           for (GameObject o2: Item ) {
               Warning_item item = (Warning_item) o2;
               if (CollisionHelper.collides(item, TPlayer)) {
                   TPlayer.roundLaser();
                   remove(item, false);
                   collided = true;
+
                   break;
               }
           }
@@ -154,6 +157,8 @@ public class MainGame {
               if (CollisionHelper.collides(NArrow, TPlayer)) {
                   remove(NArrow, false);
                   collided = true;
+
+                  GameView.view.pauseGame();
                   break;
               }
           }
@@ -162,6 +167,8 @@ public class MainGame {
               if (CollisionHelper.collides(GArrow, TPlayer)) {
                   remove(GArrow, false);
                   collided = true;
+
+                  GameView.view.pauseGame();
                   break;
               }
           }

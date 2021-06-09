@@ -50,8 +50,10 @@ public class ArrowGenerator implements GameObject {
             normalArrowSpeed=4.f;
         }
         if (totalTime>25.f) {
-            normalArrowTerm=0.5f-totalTime*0.002f;
-            normalArrowSpeed=4.f+totalTime*0.03f;
+            if(normalArrowTerm>0.3f){
+            normalArrowTerm=0.5f-totalTime*0.002f;}
+            if(normalArrowSpeed<10.f){
+            normalArrowSpeed=4.f+totalTime*0.03f;}
         }
     }
     private void Pattern1()
