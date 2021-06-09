@@ -69,7 +69,7 @@ public class MainGame {
 
         initLayers(Layer.ENEMY_COUNT.ordinal());
 
-        player = new Player(new Vector2(w/2, h - 300));
+        player = new Player(new Vector2(w/2, h - 700));
         add(Layer.player, player);
 
         int margin = (int) (20 * GameView.MULTIPLIER);
@@ -196,7 +196,7 @@ public class MainGame {
         warningGenerator.totalTime=0.f;
         warningGenerator.warningTime=0.f;
         arrowGenerator.Init();
-        player.SetPos(w/2, h - 300);
+        player.SetPos(w/2, h - 700);
         for (GameObject o : Arrows) {
             remove(o,true); }
         for (GameObject o : Item) {
