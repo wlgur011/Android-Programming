@@ -12,9 +12,8 @@ public class WarningGenerator implements GameObject {
 
     private static final String TAG = WarningGenerator.class.getSimpleName();
     private final MainGame game;
-    private float totalTime;
-    private float spawnInterval;
-    private float warningTime=0.f;
+    public float totalTime;
+    public float warningTime=0.f;
 
     public WarningGenerator() {
 

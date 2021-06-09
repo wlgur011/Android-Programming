@@ -33,6 +33,10 @@ public class Player implements GameObject, BoxCollidable {
         this.paint = new Paint();
     }
 
+    public void SetPos(float x,float y)
+    {
+        this.Pos.set(x,y);
+    }
     public void update() {
         MainGame game = MainGame.get();
         if (Pos.x < 0)

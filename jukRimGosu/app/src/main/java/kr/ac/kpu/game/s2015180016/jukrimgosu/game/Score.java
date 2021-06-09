@@ -44,6 +44,12 @@ public class Score implements GameObject {
 
     }
 
+    public void Init()
+    {
+        CurrScore=0.f;
+        score=0;
+        displayScore=0;
+    }
     @Override
     public void draw(Canvas canvas) {
         int value = this.displayScore;

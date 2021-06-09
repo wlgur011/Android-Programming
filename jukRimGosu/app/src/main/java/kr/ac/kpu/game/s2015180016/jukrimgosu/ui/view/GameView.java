@@ -1,6 +1,8 @@
 package kr.ac.kpu.game.s2015180016.jukrimgosu.ui.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.media.MediaPlayer;
 import android.util.AttributeSet;
@@ -14,6 +16,7 @@ import androidx.annotation.Nullable;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.R;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.framework.Sound;
 import kr.ac.kpu.game.s2015180016.jukrimgosu.game.MainGame;
+import kr.ac.kpu.game.s2015180016.jukrimgosu.ui.activity.MainActivity;
 
 
 public class GameView extends View {
@@ -97,6 +100,9 @@ public class GameView extends View {
             requestCallback();
         }
     }
+
+
+
 }
 
 

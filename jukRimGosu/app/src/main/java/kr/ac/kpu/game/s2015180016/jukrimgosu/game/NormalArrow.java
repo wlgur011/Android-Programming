@@ -82,7 +82,7 @@ public class NormalArrow implements GameObject, BoxCollidable, Recyclable {
         BoundingRect.set(BoundingRectOffSetDir.x-5,BoundingRectOffSetDir.y-5
                 ,BoundingRectOffSetDir.x+5,BoundingRectOffSetDir.y+5);
 
-        if (Pos.x < -100 ||Pos.x >1600 || Pos.y<0 || Pos.y >1600) {
+        if (Pos.x < -200 ||Pos.x >1600 || Pos.y<-200 || Pos.y >1600) {
             game.remove(this);
 
         }

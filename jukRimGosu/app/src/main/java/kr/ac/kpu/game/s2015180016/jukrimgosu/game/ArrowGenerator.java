@@ -21,6 +21,12 @@ public class ArrowGenerator implements GameObject {
         normalArrowSpeed=2.f;
          game = MainGame.get();
     }
+    public void Init()
+    {
+        totalTime=0.f;
+        normalArrowTerm=1.f;
+        normalArrowSpeed=2.f;
+    }
     @Override
     public void update() {
         totalTime+= game.frameTime;

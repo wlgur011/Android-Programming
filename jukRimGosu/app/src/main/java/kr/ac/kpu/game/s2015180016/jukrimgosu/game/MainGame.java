@@ -35,6 +35,8 @@ public class MainGame {
     public float frameTime;
     private boolean initialized;
 
+    private  ArrowGenerator arrowGenerator;
+    private WarningGenerator warningGenerator;
     //    Player player;
     ArrayList<ArrayList<GameObject>> layers;
     private static HashMap<Class, ArrayList<GameObject>> recycleBin = new HashMap<>();
@@ -78,9 +80,9 @@ public class MainGame {
         ImageObject bg = new ImageObject(R.mipmap.back,w/2 ,h/2);
         add(Layer.bg1, bg);
 
-        ArrowGenerator generator=new ArrowGenerator();
-        add(Layer.controller, generator);
-        WarningGenerator warningGenerator=new WarningGenerator();
+        arrowGenerator=new ArrowGenerator();
+        add(Layer.controller, arrowGenerator);
+        warningGenerator=new WarningGenerator();
         add(Layer.controller, warningGenerator);
         initialized = true;
 
@@ -158,7 +160,10 @@ public class MainGame {
                   remove(NArrow, false);
                   collided = true;
 
-                  GameView.view.pauseGame();
+
+                  AllRemove();
+                  //GameView.view.pauseGame();
+
                   break;
               }
           }
@@ -176,6 +181,31 @@ public class MainGame {
               break;
           }
       }
+    }
+    public void AllRemove()
+    {
+        ArrayList<GameObject> Arrows = layers.get(Layer.N_Arrow.ordinal());
+        ArrayList<GameObject> Item = layers.get(Layer.Warning_item.ordinal());
+        ArrayList<GameObject> GArrows = layers.get(Layer.G_Arrow.ordinal());
+        ArrayList<GameObject> lasers = layers.get(Layer.Laser.ordinal());
+
+        int w = GameView.view.getWidth();
+        int h = GameView.view.getHeight();
+        score.setScore(0);
+        score.Init();
+        warningGenerator.totalTime=0.f;
+        warningGenerator.warningTime=0.f;
+        arrowGenerator.Init();
+        player.SetPos(w/2, h - 300);
+        for (GameObject o : Arrows) {
+            remove(o,true); }
+        for (GameObject o : Item) {
+            remove(o,true); }
+        for (GameObject o : GArrows) {
+            remove(o,true); }
+        for (GameObject o : lasers) {
+            remove(o,true); }
+
     }
     public void draw(Canvas canvas) {
         //if (!initialized) return;

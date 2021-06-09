@@ -1,5 +1,6 @@
 package kr.ac.kpu.game.s2015180016.jukrimgosu.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -102,4 +103,5 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         GameView.view.resumeGame();
     }
+
 }
