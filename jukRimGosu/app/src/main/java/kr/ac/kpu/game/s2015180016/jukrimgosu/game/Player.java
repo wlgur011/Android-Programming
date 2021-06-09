@@ -59,7 +59,7 @@ public class Player implements GameObject, BoxCollidable {
 
     public void draw(Canvas canvas) {
         planeBitmap.draw(canvas, Pos.x, Pos.y);
-        canvas.drawRect(BoundingRect, this.paint);
+        //canvas.drawRect(BoundingRect, this.paint);
     }
 
     @Override

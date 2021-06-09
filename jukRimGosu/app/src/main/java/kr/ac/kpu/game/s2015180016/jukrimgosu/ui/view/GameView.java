@@ -102,7 +102,11 @@ public class GameView extends View {
     }
 
 
-
+    public void Restart() {
+        resumeGame();
+        MainGame game = MainGame.get();
+        game.AllRemove();
+    }
 }
 
 

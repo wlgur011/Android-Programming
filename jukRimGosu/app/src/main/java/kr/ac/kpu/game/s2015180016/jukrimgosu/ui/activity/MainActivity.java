@@ -104,4 +104,7 @@ public class MainActivity extends AppCompatActivity {
         GameView.view.resumeGame();
     }
 
+    public void onBtnRestart(View view) {
+        GameView.view.Restart();
+    }
 }

@@ -14,6 +14,7 @@ public class ImageObject implements GameObject {
 
     private Rect srcRect = new Rect();
     private RectF dstRect = new RectF();
+    public boolean isGameOver=false;
     public ImageObject(int resId, float x, float y) {
         bitmap = GameBitmap.load(resId);
         int w = bitmap.getWidth();
@@ -28,6 +29,11 @@ public class ImageObject implements GameObject {
     @Override
     public void update() {
 
+        if(isGameOver)
+        {
+            isGameOver=false;
+            GameView.view.pauseGame();
+        }
     }
 
     @Override

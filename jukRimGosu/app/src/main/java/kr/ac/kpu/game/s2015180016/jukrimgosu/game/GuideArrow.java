@@ -96,7 +96,7 @@ public class GuideArrow implements GameObject, BoxCollidable, Recyclable {
         float angle = (float) Math.atan2(Angle.y, Angle.x);
         float degree = (float) (angle * 180 / Math.PI);
         canvas.save();
-        canvas.drawRect(BoundingRect,paint);
+        //canvas.drawRect(BoundingRect,paint);
         canvas.rotate(degree, Pos.x, Pos.y);
         bitmap.draw(canvas,Pos.x,Pos.y);
         canvas.restore();

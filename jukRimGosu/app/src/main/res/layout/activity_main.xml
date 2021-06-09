@@ -13,13 +13,40 @@
 
     <kr.ac.kpu.game.s2015180016.jukrimgosu.ui.view.GameView
         android:layout_width="match_parent"
-        android:layout_height="565dp"
+        android:layout_height="550dp"
         />
+
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="565dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/Button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_marginLeft="250dp"
+            android:text="Restart"
+            android:textColor="#444444"
+            android:onClick="onBtnRestart"
+            android:textSize="20dp" />
+    </LinearLayout>
     <RelativeLayout
         android:id="@+id/layout_joystick"
         android:layout_width="200dp"
         android:layout_height="200dp"
-        android:layout_marginTop="600dp"
+        android:layout_marginTop="550dp"
         android:background="@drawable/image_button"></RelativeLayout>
+
 
 </RelativeLayout >

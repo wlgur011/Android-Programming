@@ -57,7 +57,7 @@ public class MainGame {
     }
 
     public enum Layer {
-        bg1, N_Arrow,G_Arrow,Warning,Warning_item,Laser, player, ui, controller, ENEMY_COUNT;
+        bg1, N_Arrow,G_Arrow,Warning,Warning_item,Laser, player, ui,bg2, controller, ENEMY_COUNT;
     }
     public boolean initResources() {
         if (initialized) {
@@ -87,7 +87,6 @@ public class MainGame {
         initialized = true;
 
         GameView.view.mediaPlayer.start();
-
         return true;
     }
 
@@ -98,6 +97,14 @@ public class MainGame {
         }
     }
 
+    private ImageObject GameOver;
+    void makeGameOver()
+    {  int w = GameView.view.getWidth();
+        int h = GameView.view.getHeight();
+        GameOver= new ImageObject(R.mipmap.gameover,w/2 ,h/2);
+        GameOver.isGameOver=true;
+        add(Layer.bg2, GameOver);
+    }
     public void update() {
 
         //if (!initialized) return;
@@ -134,6 +141,14 @@ public class MainGame {
                     break;
                 }
             }
+            for (GameObject o2: player ) {
+                Player tPlayer = (Player) o2;
+                if (CollisionHelper.collides(tPlayer, laser)) {
+                    collided = true;
+                    makeGameOver();
+                    break;
+                }
+            }
             if (collided) {
                 break;
             }
@@ -143,14 +158,11 @@ public class MainGame {
 
           boolean collided = false;
 
-
           for (GameObject o2: Item ) {
               Warning_item item = (Warning_item) o2;
               if (CollisionHelper.collides(item, TPlayer)) {
                   TPlayer.roundLaser();
                   remove(item, false);
-                  collided = true;
-
                   break;
               }
           }
@@ -159,10 +171,6 @@ public class MainGame {
               if (CollisionHelper.collides(NArrow, TPlayer)) {
                   remove(NArrow, false);
                   collided = true;
-
-
-                  AllRemove();
-                  //GameView.view.pauseGame();
 
                   break;
               }
@@ -173,14 +181,15 @@ public class MainGame {
                   remove(GArrow, false);
                   collided = true;
 
-                  GameView.view.pauseGame();
                   break;
               }
           }
           if (collided) {
+              makeGameOver();
               break;
           }
       }
+
     }
     public void AllRemove()
     {
@@ -188,7 +197,9 @@ public class MainGame {
         ArrayList<GameObject> Item = layers.get(Layer.Warning_item.ordinal());
         ArrayList<GameObject> GArrows = layers.get(Layer.G_Arrow.ordinal());
         ArrayList<GameObject> lasers = layers.get(Layer.Laser.ordinal());
+        ArrayList<GameObject> bg2 = layers.get(Layer.bg2.ordinal());
 
+        GameView.view.mediaPlayer.seekTo(0);
         int w = GameView.view.getWidth();
         int h = GameView.view.getHeight();
         score.setScore(0);
@@ -205,9 +216,12 @@ public class MainGame {
             remove(o,true); }
         for (GameObject o : lasers) {
             remove(o,true); }
-
+        for (GameObject o : bg2) {
+            remove(o,true); }
     }
+    public Canvas mCanvas;
     public void draw(Canvas canvas) {
+        mCanvas=canvas;
         //if (!initialized) return;
         for (ArrayList<GameObject> objects: layers) {
             for (GameObject o : objects) {
